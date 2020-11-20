@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+    <div id="app">
+        <v-app>
+            <v-card style="margin: 10px;" elevation="5">
+                <v-toolbar color="green" dark>
+                    <v-toolbar-title>App To-Do</v-toolbar-title>
+                </v-toolbar>
+                <v-container>
+                    <v-row>
+                        <v-col cols="3">
+                            <v-text-field v-model="tarea" label="Nueva tarea" clearable outlined></v-text-field>
+                            <v-alert outlined type="error" v-if="tareaNull === true">
+                                El campo no puede estar vacío
+                            </v-alert>
+                        </v-col>
+                        <v-col cols="1" style='margin-top: 10px'>
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn class="green" v-on="on" icon dark @click="add()">
+                                        <v-icon>mdi-plus</v-icon>
+                                    </v-btn>
+                                </template>
+                                <span>Agregar Tarea</span>
+                            </v-tooltip>
+                        </v-col>
+                        <v-col cols="8">
+                            <v-data-table
+                                    :headers="headers"
+                                    :items="items"
+                                    :items-per-page="5"
+                                    class="elevation-1"
+                            >
+                                <template v-slot:item.acciones="{ item }">
+                                    <v-tooltip bottom>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn v-on="on" icon @click="del(item)">
+                                                <v-icon color="pink">mdi-delete</v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Eliminar</span>
+                                    </v-tooltip>
+                                </template>
+                            </v-data-table>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-card>
+        </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
